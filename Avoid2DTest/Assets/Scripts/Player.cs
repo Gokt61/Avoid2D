@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed = 5f;
+    public float xBound, yBound;
 
     void Start()
     {
@@ -18,5 +19,7 @@ public class Player : MonoBehaviour
         target.z = transform.position.z;
 
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, -xBound, xBound), Mathf.Clamp(transform.position.y, -yBound, yBound));
     }
 }

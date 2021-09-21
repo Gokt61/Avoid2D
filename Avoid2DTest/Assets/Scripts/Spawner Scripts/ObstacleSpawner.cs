@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    public static ObstacleSpawner instance;
+
     public Obstacle point;
     public Obstacle horizontalObstacle;
     public Obstacle verticalObstacle;
 
-    private bool left, up;
+    [HideInInspector]
+    public bool left, up;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -54,9 +62,9 @@ public class ObstacleSpawner : MonoBehaviour
     {
         if (up)
             Instantiate(horizontalObstacle.obstacle, new Vector2(Random.Range(-horizontalObstacle.xBound, horizontalObstacle.xBound),
-                horizontalObstacle.yBound), Quaternion.Euler(0,0,90));
+                horizontalObstacle.yBound), Quaternion.identity);
         else
             Instantiate(horizontalObstacle.obstacle, new Vector2(Random.Range(horizontalObstacle.xBound, horizontalObstacle.xBound),
-                -horizontalObstacle.yBound), Quaternion.Euler(0, 0, 90));
+                -horizontalObstacle.yBound), Quaternion.identity);
     }
 }

@@ -494,6 +494,8 @@ MonoBehaviour:
     obstacle: {fileID: 6987788798416537350, guid: 7147b51bdd42e8846af28184cc66bf9e, type: 3}
     xBound: 4
     yBound: 2.75
+  left: 0
+  up: 0
 --- !u!4 &1642207853
 Transform:
   m_ObjectHideFlags: 0

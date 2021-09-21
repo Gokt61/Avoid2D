@@ -22,4 +22,13 @@ public class Player : MonoBehaviour
 
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, -xBound, xBound), Mathf.Clamp(transform.position.y, -yBound, yBound));
     }
+
+    private void OnTriggerEnter2D(Collider2D target)
+    {
+        if (target.CompareTag("Point"))
+        {
+            Destroy(target.gameObject);
+            StartCoroutine(GameObject.FindObjectOfType<ObstacleSpawner>().SpawnAtPoint());
+        }
+    }
 }

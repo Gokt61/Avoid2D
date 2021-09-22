@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Vector3 target = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
         target.z = transform.position.z;
 

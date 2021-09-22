@@ -9,6 +9,8 @@ public class ObstacleSpawner : MonoBehaviour
     public Obstacle point;
     public Obstacle horizontalObstacle;
     public Obstacle verticalObstacle;
+    public Obstacle enemyFollow;
+    public Obstacle projectileSpawner;
 
     [HideInInspector]
     public bool left, up;
@@ -21,6 +23,8 @@ public class ObstacleSpawner : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnAtPoint());
+        StartCoroutine(SpawnProjectileSpawner());
+        StartCoroutine(SpawnEnemyFollow());
 
         RandomSpawnerChance();
 
@@ -66,5 +70,35 @@ public class ObstacleSpawner : MonoBehaviour
         else
             Instantiate(horizontalObstacle.obstacle, new Vector2(Random.Range(horizontalObstacle.xBound, horizontalObstacle.xBound),
                 -horizontalObstacle.yBound), Quaternion.identity);
+    }
+
+    public IEnumerator SpawnProjectileSpawner()
+    {
+        int timer = Random.Range(5, 10);
+        yield return new WaitForSeconds(timer);
+
+        Vector2 enemyShootPos = new Vector2(Random.Range(-point.xBound, point.xBound), Random.Range(-point.yBound, point.yBound));
+        Instantiate(projectileSpawner.obstacle, enemyShootPos, Quaternion.identity);
+
+        StartCoroutine(SpawnProjectileSpawner());
+    }
+
+    IEnumerator SpawnEnemyFollow()
+    {
+        int timer = 15;
+
+        yield return new WaitForSeconds(timer);
+
+        Vector2 spawnPoint = GameObject.Find("Player").transform.position;
+        spawnPoint += Random.insideUnitCircle * 10;
+
+        if (!GameObject.FindObjectOfType<EnemyFollow>())
+        {
+            Instantiate(enemyFollow.obstacle, spawnPoint, Quaternion.identity);
+
+            timer = 10;
+
+            StartCoroutine(SpawnEnemyFollow());
+        }
     }
 }

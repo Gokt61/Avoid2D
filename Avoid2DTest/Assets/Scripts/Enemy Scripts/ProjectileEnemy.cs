@@ -9,6 +9,8 @@ public class ProjectileEnemy : MonoBehaviour
     private Rigidbody2D rb;
 
     private Vector2 playerPos;
+
+    public GameObject damageEffect;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,5 +33,14 @@ public class ProjectileEnemy : MonoBehaviour
         rb.AddForce(dir * force);
 
         Destroy(gameObject, 4);
+    }
+
+    void OnTriggerEnter2D(Collider2D target)
+    {
+        if (target.tag == "Enemy")
+        {
+            Instantiate(damageEffect, transform.position, Quaternion.identity);
+            Destroy(target.gameObject);
+        }
     }
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8080364548677527252}
   m_Layer: 0
   m_Name: ProjectileEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,3 +155,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 200
+  damageEffect: {fileID: 147102, guid: 9e9eb34c5f5914bf0b137acd842affdd, type: 3}

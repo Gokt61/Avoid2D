@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public float xBound, yBound;
 
+    public GameObject damageEffect;
+
     void Start()
     {
         
@@ -14,6 +16,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         target.z = transform.position.z;
 
@@ -28,6 +31,12 @@ public class Player : MonoBehaviour
         {
             Destroy(target.gameObject);
             StartCoroutine(GameObject.FindObjectOfType<ObstacleSpawner>().SpawnAtPoint());
+        }
+
+        if (target.tag == "Obstacle" || target.tag == "Enemy")
+        {
+            Instantiate(damageEffect, transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
         }
     }
 }

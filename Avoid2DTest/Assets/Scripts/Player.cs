@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     {
         if (target.CompareTag("Point"))
         {
+            GameManager.instance.IncreseScore();
             Destroy(target.gameObject);
             StartCoroutine(GameObject.FindObjectOfType<ObstacleSpawner>().SpawnAtPoint());
         }
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
         if (target.tag == "Obstacle" || target.tag == "Enemy")
         {
             Instantiate(damageEffect, transform.position, Quaternion.identity);
+            GameManager.instance.isDead = true;
             gameObject.SetActive(false);
         }
     }

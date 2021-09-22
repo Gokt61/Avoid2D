@@ -13,6 +13,8 @@ public class HorizontalMovement : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0) return;
+
         if (GameObject.FindObjectOfType<ObstacleSpawner>().up)
         {
             transform.Translate(new Vector2(0, -speed * 0.12f));

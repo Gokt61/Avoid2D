@@ -13,6 +13,8 @@ public class VerticalMovement : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0) return;
+
         if (GameObject.FindObjectOfType<ObstacleSpawner>().left)
         {
             transform.Translate(new Vector2(speed * 0.10f,0f));

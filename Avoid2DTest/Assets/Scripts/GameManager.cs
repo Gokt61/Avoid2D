@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int score;
+
+    public Text scoreText;
+    private int score;
 
     private bool gameOver;
     public bool isDead;
@@ -30,7 +33,7 @@ public class GameManager : MonoBehaviour
     public void IncreseScore()
     {
         score++;
-
+        scoreText.text = score.ToString("00");
     }
 
     IEnumerator GameOver()

@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
     public GameObject damageEffect;
 
+    private float deltaX, deltaY;
+
     void Start()
     {
         
@@ -16,13 +18,29 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Vector3 target = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            
+            Vector3 target = Camera.main.ScreenToWorldPoint(touch.position);
 
-        target.z = transform.position.z;
+            target.z = transform.position.z;
 
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-        transform.position = new Vector2(Mathf.Clamp(transform.position.x, -xBound, xBound), Mathf.Clamp(transform.position.y, -yBound, yBound));
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    deltaX = target.x - transform.position.x;
+                    deltaY = target.y - transform.position.y;
+                    break;
+                case TouchPhase.Moved:
+                    transform.position = new Vector2(target.x - deltaX, target.y - deltaY);
+                    break;
+                case TouchPhase.Ended:
+                    transform.position = new Vector2(transform.position.x, transform.position.y);
+                    break;
+            }
+            transform.position = new Vector2(Mathf.Clamp(transform.position.x, -xBound, xBound), Mathf.Clamp(transform.position.y, -yBound, yBound));
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D target)
